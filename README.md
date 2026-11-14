@@ -24,7 +24,7 @@ ARC Guard is a small webOS web app plus a background shell watcher for rooted LG
 | Item | Details |
 |---|---|
 | Intended platform | Rooted LG webOS TV |
-| Original target | LG 43UP78006LB, webOS 6.3.2-425 |
+| Hardware test platform | Rooted LG UP78 43-inch 4K Smart UHD TV (43UP78006LB) running webOS 6.3.2-425 |
 | Root/homebrew dependency | Homebrew Channel with its root `exec` service and startup hooks |
 | Packaging | `@webos-tools/cli` (`ares-package`) |
 | Audio output API | `luna://com.webos.service.apiadapter/audio/getSoundOutput` and `.../changeSoundOutput` |
