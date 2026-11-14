@@ -1,0 +1,71 @@
+name: Build IPK
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate source
+        run: ./scripts/check.sh
+
+      - name: Build with official webOS CLI
+        run: ./scripts/build.sh
+
+      - name: Upload IPK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arcguard-ipk
+          path: dist/ARCGuard_*.ipk
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Download IPK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: arcguard-ipk
+          path: dist
+
+      - name: Verify tag matches source version
+        run: |
+          APP_VERSION="$(node -p 'JSON.parse(require("fs").readFileSync("app/appinfo.json", "utf8")).version')"
+          EXPECTED_TAG="v${APP_VERSION}"
+          if [ "$GITHUB_REF_NAME" != "$EXPECTED_TAG" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match app version $APP_VERSION (expected $EXPECTED_TAG)." >&2
+            exit 1
+          fi
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/ARCGuard_*.ipk --title "ARC Guard $GITHUB_REF_NAME" --generate-notes

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ARC Guard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="mark" aria-hidden="true">↗</div>
+      <div class="brand-copy">
+        <h1>ARC Guard</h1>
+        <p class="subtitle">Keep your preferred audio output selected</p>
+      </div>
+      <div id="serviceBadge" class="badge muted">Checking…</div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="ARC Guard sections">
+      <button id="tabStatus" class="tab active" type="button" role="tab" aria-selected="true" aria-controls="pageStatus" tabindex="0" data-view="Status">Status</button>
+      <button id="tabSettings" class="tab" type="button" role="tab" aria-selected="false" aria-controls="pageSettings" tabindex="-1" data-view="Settings">Settings</button>
+      <button id="tabService" class="tab" type="button" role="tab" aria-selected="false" aria-controls="pageService" tabindex="-1" data-view="Service">Service &amp; Help</button>
+    </nav>
+
+    <div class="views">
+      <section id="pageStatus" class="view active" role="tabpanel" aria-labelledby="tabStatus">
+        <section class="panel status-panel">
+          <div class="panel-heading">
+            <div><div class="section-title">Live status</div><p class="panel-intro">ARC Guard checks the current output and corrects it when needed.</p></div>
+            <span class="live-dot" aria-hidden="true"></span>
+          </div>
+          <div class="status-grid">
+            <div class="status-tile"><span class="label">Current output</span><strong id="currentOutput">Unknown</strong></div>
+            <div class="status-tile"><span class="label">Preferred output</span><strong id="targetOutputReadout">HDMI ARC / eARC</strong></div>
+            <div class="status-tile"><span class="label">Last action</span><strong id="lastAction">Waiting for status…</strong></div>
+            <div class="status-tile"><span class="label">Corrections this run</span><strong id="corrections">0</strong></div>
+          </div>
+          <p id="statusDetail" class="detail">Open Service &amp; Help to install the boot service and start background monitoring.</p>
+          <div class="actions">
+            <button id="applyBtn" class="primary" type="button">Apply preferred output now</button>
+            <button id="refreshBtn" class="secondary" type="button">Refresh status</button>
+          </div>
+        </section>
+        <section class="tip-strip">
+          <span class="tip-icon" aria-hidden="true">i</span>
+          <p><strong>Tip:</strong> If you want to use TV speakers temporarily, open Settings and pause enforcement or switch it off.</p>
+        </section>
+      </section>
+
+      <section id="pageSettings" class="view" role="tabpanel" aria-labelledby="tabSettings" hidden>
+        <div class="page-heading"><h2>Settings</h2><p>Choose the output ARC Guard should keep selected. In a menu, use Up/Down to choose; Left/Right or Back returns to the page.</p></div>
+        <section class="panel settings-panel">
+          <div class="settings-grid">
+            <div class="setting row-setting setting-card">
+              <div><strong>Enforce preferred output</strong><p>Automatically correct it if webOS switches away.</p></div>
+              <label class="switch"><input id="enabled" type="checkbox"><span class="slider"></span><span class="sr-only">Enable enforcement</span></label>
+            </div>
+            <div class="setting setting-card">
+              <label for="target"><strong>Preferred output</strong></label>
+              <div class="remote-picker">
+                <button id="target" class="picker-trigger" type="button" data-value="external_arc" aria-haspopup="listbox" aria-expanded="false" aria-controls="targetOptions">
+                  <span class="picker-current">HDMI ARC / eARC</span><span class="picker-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div id="targetOptions" class="picker-options" role="listbox" aria-label="Preferred output" hidden>
+                  <button class="picker-option" type="button" role="option" data-value="external_arc" aria-selected="true" tabindex="-1">HDMI ARC / eARC</button>
+                  <button class="picker-option" type="button" role="option" data-value="tv_speaker" aria-selected="false" tabindex="-1">TV internal speakers</button>
+                  <button class="picker-option" type="button" role="option" data-value="external_optical" aria-selected="false" tabindex="-1">Optical</button>
+                  <button class="picker-option" type="button" role="option" data-value="bt_soundbar" aria-selected="false" tabindex="-1">Bluetooth soundbar</button>
+                  <button class="picker-option" type="button" role="option" data-value="lineout" aria-selected="false" tabindex="-1">Line out</button>
+                  <button class="picker-option" type="button" role="option" data-value="headphone" aria-selected="false" tabindex="-1">Headphones</button>
+                </div>
+              </div>
+              <p class="help">Only common TV Sound Out modes are listed. ARC/eARC is <code>external_arc</code>. Test a new selection before enabling enforcement.</p>
+            </div>
+            <div class="setting setting-card">
+              <label for="interval"><strong>Check frequency</strong></label>
+              <div class="remote-picker">
+                <button id="interval" class="picker-trigger" type="button" data-value="3" aria-haspopup="listbox" aria-expanded="false" aria-controls="intervalOptions">
+                  <span class="picker-current">Every 3 seconds — recommended</span><span class="picker-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div id="intervalOptions" class="picker-options" role="listbox" aria-label="Check frequency" hidden>
+                  <button class="picker-option" type="button" role="option" data-value="2" aria-selected="false" tabindex="-1">Every 2 seconds — fastest</button>
+                  <button class="picker-option" type="button" role="option" data-value="3" aria-selected="true" tabindex="-1">Every 3 seconds — recommended</button>
+                  <button class="picker-option" type="button" role="option" data-value="5" aria-selected="false" tabindex="-1">Every 5 seconds</button>
+                  <button class="picker-option" type="button" role="option" data-value="10" aria-selected="false" tabindex="-1">Every 10 seconds — quieter</button>
+                </div>
+              </div>
+            </div>
+            <div class="setting setting-card">
+              <label for="startupDelay"><strong>Wait after TV boot</strong></label>
+              <div class="remote-picker">
+                <button id="startupDelay" class="picker-trigger" type="button" data-value="20" aria-haspopup="listbox" aria-expanded="false" aria-controls="startupDelayOptions">
+                  <span class="picker-current">20 seconds — recommended</span><span class="picker-chevron" aria-hidden="true">▼</span>
+                </button>
+                <div id="startupDelayOptions" class="picker-options" role="listbox" aria-label="Wait after TV boot" hidden>
+                  <button class="picker-option" type="button" role="option" data-value="0" aria-selected="false" tabindex="-1">No delay</button>
+                  <button class="picker-option" type="button" role="option" data-value="10" aria-selected="false" tabindex="-1">10 seconds</button>
+                  <button class="picker-option" type="button" role="option" data-value="20" aria-selected="true" tabindex="-1">20 seconds — recommended</button>
+                  <button class="picker-option" type="button" role="option" data-value="45" aria-selected="false" tabindex="-1">45 seconds</button>
+                  <button class="picker-option" type="button" role="option" data-value="90" aria-selected="false" tabindex="-1">90 seconds</button>
+                </div>
+              </div>
+              <p class="help">Lets HDMI-CEC and the soundbar settle before correcting.</p>
+            </div>
+          </div>
+          <div class="actions settings-actions">
+            <button id="saveBtn" class="primary" type="button">Save settings</button>
+            <button id="pauseBtn" class="secondary" type="button">Pause for 30 min</button>
+            <button id="resumeBtn" class="secondary" type="button">Resume now</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="pageService" class="view" role="tabpanel" aria-labelledby="tabService" hidden>
+        <div class="page-heading"><h2>Service &amp; Help</h2><p>Control automatic startup and troubleshoot the watcher.</p></div>
+        <section class="panel service-panel">
+          <div class="section-title">Boot service</div>
+          <p class="paragraph">Install the Homebrew Channel startup hook once to start ARC Guard in the background whenever the TV boots. The app does not need to stay open.</p>
+          <div class="actions">
+            <button id="installBtn" class="primary" type="button">Install / repair boot service</button>
+            <button id="removeBtn" class="danger" type="button">Remove boot service</button>
+          </div>
+          <p id="hookStatus" class="help hook-status">Boot hook status not checked yet.</p>
+        </section>
+        <section class="panel diagnostics-panel">
+          <div class="section-title">Diagnostics</div>
+          <div class="diag-row"><span class="label">Latest reported issue</span><p id="errorLine" class="error-line">No errors reported.</p></div>
+          <p class="help">If “Apply preferred output now” fails, verify ARC in the TV's normal Sound Out menu. Firmware versions can expose different audio controls.</p>
+        </section>
+      </section>
+    </div>
+
+    <footer>ARC Guard 1.0.9 <span aria-hidden="true">·</span> Rooted webOS TV helper</footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </main>
+</body>
+</html>

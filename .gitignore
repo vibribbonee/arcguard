@@ -1,0 +1,17 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+*.ipk
+dist/
+node_modules/
+.npm/
+__pycache__/
+*.py[cod]
+
+secrets.yaml
+.env
+.env.local
+.pytest_cache/
+.venv/
+/dist/

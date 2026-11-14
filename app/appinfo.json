@@ -1,0 +1,13 @@
+{
+  "id": "org.webosbrew.arcguard",
+  "version": "1.0.9",
+  "vendor": "Arc Guard Homebrew",
+  "type": "web",
+  "main": "index.html",
+  "title": "ARC Guard",
+  "icon": "icon.png",
+  "largeIcon": "icon.png",
+  "disableBackHistoryAPI": true,
+  "supportTouchMode": false,
+  "appDescription": "Rooted webOS TV helper that monitors Sound Out and can cautiously restore HDMI ARC/eARC when the selected output changes."
+}
