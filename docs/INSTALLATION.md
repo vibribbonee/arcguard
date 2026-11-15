@@ -2,17 +2,11 @@
 
 ARC Guard is for **rooted LG webOS TVs**. It is not a normal, unprivileged LG Content Store app. The boot service relies on Homebrew Channel (HBC) root support and its startup-hook directory.
 
-## Option A — download the package from GitHub Actions
+## Download
 
-Once this repository is on GitHub:
+Get the IPK from [GitHub Releases](https://github.com/vibribbonee/arcguard/releases/latest), or install ARC Guard from the [Homebrew catalog](https://raw.githubusercontent.com/vibribbonee/arcguard/main/repo.json).
 
-1. Open **Actions** and choose a successful **Build IPK** run.
-2. Download the workflow artifact named `arcguard-ipk`.
-3. Extract it and find `ARCGuard_1.0.9.ipk`.
-
-The artifact is built from the repository source using the official webOS CLI. This is a build artifact, not a guarantee of compatibility; the current version is still experimental.
-
-## Option B — build it yourself
+## Build it yourself
 
 Requirements: Node.js 20+, npm or pnpm, Python 3, and internet access to the npm registry. The build uses a disposable directory for the pinned CLI installation and package output.
 

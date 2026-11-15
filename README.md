@@ -6,9 +6,9 @@ Keep your soundbar selected on a rooted LG webOS TV. ARC Guard restores HDMI ARC
 
 ## Features
 
-- Restore your preferred Sound Out automatically.
-- Test the selected output instantly and pause enforcement when you want TV speakers.
-- Start monitoring at boot and see the latest correction in the app.
+- **Restore HDMI ARC/eARC.** Switch back to your soundbar automatically when the TV selects another output.
+- **Test or pause.** Apply the preferred output once, or pause monitoring for 30 minutes to use TV speakers.
+- **Start with the TV.** Install the boot service and see the current output, last action, and correction count.
 
 ![ARC Guard’s preferred output, enforcement, and timing settings](docs/output-settings.jpg)
 
@@ -20,7 +20,7 @@ Keep your soundbar selected on a rooted LG webOS TV. ARC Guard restores HDMI ARC
 
 Version 1.0.9 was tested on LG UP78 (43UP78006LB), webOS 6.3.2-425. Sound Out options vary by model and firmware.
 
-[Installation guide](docs/INSTALLATION.md) · [Architecture](docs/ARCHITECTURE.md) · [Sources and credits](docs/SOURCES_AND_CREDITS.md). Build with `./scripts/build.sh`.
+[Manual installation and troubleshooting](docs/INSTALLATION.md) · [Sources and credits](docs/SOURCES_AND_CREDITS.md)
 
 ## Contributing
 
