@@ -51,7 +51,7 @@ docs/                        installation, architecture, sources, GitHub setup
 
 ## Getting a package without building locally
 
-For TV installation, open **Homebrew Channel → Settings → Add repository** and enter [the webOS catalog](https://raw.githubusercontent.com/vibribbonee/TheVibeCollection/main/repo.json). You can also download the IPKs from [GitHub Releases](https://github.com/vibribbonee/arcguard/releases).
+For TV installation, open **Homebrew Channel → Settings → Add repository** and enter [the webOS catalog](https://raw.githubusercontent.com/vibribbonee/arcguard/main/repo.json). You can also download the IPKs from [GitHub Releases](https://github.com/vibribbonee/arcguard/releases).
 
 After this repository is pushed to GitHub, the **Build IPK** workflow runs on pushes and pull requests and uploads an IPK as a workflow artifact. To obtain it, open the repository's **Actions** tab, select the successful workflow run, and download its artifact.
 
