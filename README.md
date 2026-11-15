@@ -5,7 +5,7 @@
 ARC Guard is a small webOS web app plus a background shell watcher for rooted LG TVs. It has a remote-friendly, three-tab interface for status, settings, and boot-service management. The goal is to stop the TV unexpectedly falling back to its internal speakers without repeatedly renegotiating ARC when the output is already correct.
 
 > [!WARNING]
-> **Experimental / not yet validated as a complete release on the target TV.** The initial package (1.0.5) installed and launched on an LG 43UP78006LB running webOS 6.3.2-425, but its Settings tab did not open correctly and its output-setting behaviour was not reliable. Manually assembled follow-up packages were rejected by that TV's installer. This repository therefore uses the official webOS CLI to build packages instead of distributing the earlier manually assembled IPKs. The source includes attempted fixes, but the current source must still be installed and tested on the target TV before enforcement is enabled. See [known limitations](#known-status-and-limitations).
+> **Tested on hardware.** ARC Guard 1.0.9 was installed on a rooted LG UP78 (43UP78006LB), running webOS 6.3.2-425. Settings opened and soundbar switching worked on that setup.
 
 ## Features
 
@@ -51,9 +51,11 @@ docs/                        installation, architecture, sources, GitHub setup
 
 ## Getting a package without building locally
 
+For TV installation, open **Homebrew Channel → Settings → Add repository** and enter [the webOS catalog](https://raw.githubusercontent.com/vibribbonee/TheVibeCollection/main/repo.json). You can also download the IPKs from [GitHub Releases](https://github.com/vibribbonee/arcguard/releases).
+
 After this repository is pushed to GitHub, the **Build IPK** workflow runs on pushes and pull requests and uploads an IPK as a workflow artifact. To obtain it, open the repository's **Actions** tab, select the successful workflow run, and download its artifact.
 
-A GitHub Release asset is generated only when a `v*` tag is pushed. **Do not create a public version tag until the generated package has been tested on a TV.** The version number in `app/appinfo.json` is the source version.
+The release page provides the tested IPK. The version in `app/appinfo.json` matches the package version.
 
 ## Build locally (optional)
 
