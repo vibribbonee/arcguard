@@ -4,7 +4,7 @@ ARC Guard is for **rooted LG webOS TVs**. It is not a normal, unprivileged LG Co
 
 ## Download
 
-Get the IPK from [GitHub Releases](https://github.com/vibribbonee/arcguard/releases/latest), or install ARC Guard from the [Homebrew catalog](https://raw.githubusercontent.com/vibribbonee/arcguard/main/repo.json).
+Get the IPK from [GitHub Releases](https://github.com/vibribbonee/arcguard/releases/latest), or install ARC Guard from the [Homebrew catalog](https://raw.githubusercontent.com/vibribbonee/webos-homebrew-catalog/main/repo.json).
 
 ## Build it yourself
 

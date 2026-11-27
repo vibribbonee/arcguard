@@ -1,0 +1,27 @@
+name: Mirror catalog
+
+# repo.json moved to vibribbonee/webos-homebrew-catalog. TVs that still use this
+# repository's URL keep receiving updates through this hourly copy.
+on:
+  schedule:
+    - cron: "47 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Copy the current catalog
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/vibribbonee/webos-homebrew-catalog/main/repo.json -o repo.json.new
+          python3 -c "import json; d = json.load(open('repo.json.new')); assert d['packages']"
+          mv repo.json.new repo.json
+          git diff --quiet repo.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Mirror the Homebrew catalog" repo.json
+          git push

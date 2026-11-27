@@ -14,7 +14,7 @@ Keep your soundbar selected on a rooted LG webOS TV. ARC Guard restores HDMI ARC
 
 ## Install
 
-1. Open **Homebrew Channel → Settings → Add repository** and enter the [Homebrew catalog URL](https://raw.githubusercontent.com/vibribbonee/arcguard/main/repo.json), or download the [IPK from Releases](https://github.com/vibribbonee/arcguard/releases/latest).
+1. Open **Homebrew Channel → Settings → Add repository** and enter the [Homebrew catalog URL](https://raw.githubusercontent.com/vibribbonee/webos-homebrew-catalog/main/repo.json), or download the [IPK from Releases](https://github.com/vibribbonee/arcguard/releases/latest).
 2. Open ARC Guard, select **HDMI ARC / eARC**, and leave enforcement off while you test **Apply preferred output now** when the TV is on a different output. Enable enforcement once sound works.
 3. Use **Service & Help** to install the boot hook if you want ARC Guard to start with the TV.
 
